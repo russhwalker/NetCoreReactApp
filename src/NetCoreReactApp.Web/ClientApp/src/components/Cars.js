@@ -5,7 +5,7 @@ export class Cars extends Component {
 
     static renderCars(cars) {
         return (
-            <table className='table'>
+            <table className='table table-condensed'>
                 <thead>
                     <tr>
                         <th></th>

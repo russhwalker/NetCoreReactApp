@@ -18,7 +18,7 @@ namespace NetCoreReactApp.Core.Data
         {
             get
             {
-                return this.Price.ToString("C0");
+                return Price.ToString("C0");
             }
         }
     }
