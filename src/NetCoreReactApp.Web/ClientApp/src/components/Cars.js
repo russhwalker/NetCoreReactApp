@@ -17,8 +17,8 @@ export class Cars extends Component {
                     {cars.map(car =>
                         <tr key={car.carId}>
                             <td>
-                                <Link className="btn btn-sm btn-info" to={`/caredit/${car.carId}`}>
-                                    {car.carId}
+                                <Link className="btn btn-xs btn-info" to={`/caredit/${car.carId}`}>
+                                    View
                                 </Link>
                             </td>
                             <td>{car.year}</td>
@@ -51,7 +51,6 @@ export class Cars extends Component {
         return (
             <div>
                 <h1>Cars</h1>
-                <p>This component demonstrates fetching data from the server.</p>
                 {tableContents}
             </div>
         );

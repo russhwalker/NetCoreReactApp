@@ -28,9 +28,9 @@ namespace NetCoreReactApp.Web.Controllers
         }
 
         [HttpPost("[action]")]
-        public void Save([FromBody]Car car)
+        public Car Save([FromBody]Car car)
         {
-            carRepository.Save(car);
+            return carRepository.Save(car);
         }
     }
 }

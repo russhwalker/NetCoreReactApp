@@ -78,21 +78,21 @@ namespace NetCoreReactApp.Web
                     CarId = 1,
                     Price = 9999M,
                     Year = 2012,
-                    Notes = ""
+                    Notes = "car 1"
                 },
                 new Core.Data.Car
                 {
                     CarId = 2,
                     Price = 32999M,
                     Year = 2017,
-                    Notes = ""
+                    Notes = "car 2"
                 },
                 new Core.Data.Car
                 {
                     CarId = 3,
                     Price = 17500M,
                     Year = 2015,
-                    Notes = ""
+                    Notes = "car 3"
                 }
             });
             context.SaveChanges();

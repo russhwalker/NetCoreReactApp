@@ -39,8 +39,7 @@ export class CarEdit extends Component {
                 carId: this.state.carId,
                 year: this.state.year,
                 price: this.state.price,
-                notes: this.state.notes
-            
+                notes: this.state.notes            
         };
 
         fetch('api/Cars/Save', {
@@ -50,7 +49,9 @@ export class CarEdit extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        }).then(response => response.json());
+        }).then(response => {
+            var car = response.json();
+        });
 
         event.preventDefault();
     }
