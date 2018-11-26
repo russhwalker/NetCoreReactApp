@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { EditButtons } from './EditButtons';
 
 export class CarEdit extends Component {
 
@@ -6,9 +7,19 @@ export class CarEdit extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { carId: 0, year: 0, price: 0, notes: '', loading: true };
+        this.state = {
+            carId: 0,
+            year: 0,
+            price: 0,
+            notes: '',
+            editing: false,
+            loading: true
+        };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+
         fetch('api/Cars/Car/1')
             .then(response => response.json())
             .then(data => {
@@ -32,14 +43,29 @@ export class CarEdit extends Component {
         });
     }
 
-    handleSubmit(event) {
-        console.log('handleSubmit');
+    handleCancel(event) {
+        this.setState({
+            editing: false
+        });
+        event.preventDefault();
+    }
 
+    handleEdit(event) {
+        this.setState({
+            editing: true
+        });
+        event.preventDefault();
+    }
+
+    handleSubmit(event) {
+        this.setState({
+            editing: false
+        });
         var data = {
-                carId: this.state.carId,
-                year: this.state.year,
-                price: this.state.price,
-                notes: this.state.notes            
+            carId: this.state.carId,
+            year: this.state.year,
+            price: this.state.price,
+            notes: this.state.notes
         };
 
         fetch('api/Cars/Save', {
@@ -51,6 +77,11 @@ export class CarEdit extends Component {
             body: JSON.stringify(data)
         }).then(response => {
             var car = response.json();
+        }).catch(response => {
+            this.setState({
+                editing: true
+            });
+            alert('ERROR');
         });
 
         event.preventDefault();
@@ -65,28 +96,23 @@ export class CarEdit extends Component {
                     <div className="row">
                         <div className="col-md-2">
                             <label>Year</label>
-                            <input className="form-control" name="year" type="text" value={this.state.year} onChange={this.handleInputChange} />
+                            <input className="form-control" name="year" type="text" value={this.state.year} onChange={this.handleInputChange} disabled={!this.state.editing} />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-2">
                             <label>Price</label>
-                            <input className="form-control" name="price" type="text" value={this.state.price} onChange={this.handleInputChange} />
+                            <input className="form-control" name="price" type="text" value={this.state.price} onChange={this.handleInputChange} disabled={!this.state.editing} />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-6">
                             <label>Notes</label>
-                            <textarea className="form-control" name="notes" value={this.state.notes} onChange={this.handleInputChange} />
+                            <textarea className="form-control" name="notes" value={this.state.notes} onChange={this.handleInputChange} disabled={!this.state.editing} />
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <button className="btn btn-primary" name="year" type="submit">Save</button>
-                        </div>
-                    </div>
+                    <EditButtons onEditClick={this.handleEdit} onCancelClick={this.handleCancel} isEditing={this.state.editing} />
                 </form>
-
             </div>
         );
     }
