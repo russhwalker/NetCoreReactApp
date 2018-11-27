@@ -9,9 +9,11 @@ export class CarEdit extends Component {
         super(props);
         this.state = {
             carId: 0,
+            modelId: 0,
             year: 0,
             price: 0,
             notes: '',
+            models: [],
             editing: false,
             loading: true
         };
@@ -20,15 +22,17 @@ export class CarEdit extends Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
 
-        fetch('api/Cars/Car/1')
+        fetch('api/Cars/CarEdit/' + props.match.params.carId)
             .then(response => response.json())
             .then(data => {
                 this.setState(
                     {
-                        carId: data.carId,
-                        year: data.year,
-                        price: data.price,
-                        notes: data.notes,
+                        models: data.models,
+                        carId: data.car.carId,
+                        modelId: data.car.modelId,
+                        year: data.car.year,
+                        price: data.car.price,
+                        notes: data.car.notes,
                         loading: false
                     });
             });
@@ -63,6 +67,7 @@ export class CarEdit extends Component {
         });
         var data = {
             carId: this.state.carId,
+            modelId: this.state.modelId,
             year: this.state.year,
             price: this.state.price,
             notes: this.state.notes
@@ -76,8 +81,8 @@ export class CarEdit extends Component {
             },
             body: JSON.stringify(data)
         }).then(response => {
-            var car = response.json();
-        }).catch(response => {
+            response.json();
+        }).catch(() => {
             this.setState({
                 editing: true
             });
@@ -92,11 +97,21 @@ export class CarEdit extends Component {
             <div>
                 <h1>Edit Car</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="hidden" value={this.state.carId} name="carId" onChange={this.handleInputChange} />
+                    <input type="hidden" value={this.state.carId} onChange={this.handleInputChange} />
                     <div className="row">
                         <div className="col-md-2">
                             <label>Year</label>
                             <input className="form-control" name="year" type="text" value={this.state.year} onChange={this.handleInputChange} disabled={!this.state.editing} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-2">
+                            <label>Model</label>
+                            <select className="form-control" name="modelId" value={this.state.modelId} onChange={this.handleInputChange} disabled={!this.state.editing}>
+                                {this.state.models.map(function (m) {
+                                    return <option value={m.modelId}>{m.modelName}</option>;
+                                })}
+                            </select>
                         </div>
                     </div>
                     <div className="row">

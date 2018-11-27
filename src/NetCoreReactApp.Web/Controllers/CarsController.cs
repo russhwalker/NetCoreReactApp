@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreReactApp.Core.Data;
+using NetCoreReactApp.Core.ViewModels;
 
 namespace NetCoreReactApp.Web.Controllers
 {
@@ -16,9 +17,19 @@ namespace NetCoreReactApp.Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Car> Inventory()
+        public IEnumerable<CarRow> Inventory()
         {
             return carRepository.GetCars();
+        }
+
+        [HttpGet("[action]/{carId}")]
+        public CarEditViewModel CarEdit(int carId)
+        {
+            return new CarEditViewModel
+            {
+                Car = carRepository.Get(carId),
+                Models = carRepository.GetModels()
+            };
         }
 
         [HttpGet("[action]/{carId}")]

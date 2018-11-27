@@ -72,10 +72,28 @@ namespace NetCoreReactApp.Web
 
         private void SeedDatabase(Core.Data.DealerContext context)
         {
+            context.Models.AddRange(new[] {
+                new Core.Data.Model
+                {
+                    ModelId = 1,
+                    ModelName = "Civic"
+                },
+                new Core.Data.Model
+                {
+                    ModelId = 2,
+                    ModelName = "Accord"
+                },
+                new Core.Data.Model
+                {
+                    ModelId = 3,
+                    ModelName = "F150"
+                }
+            });
             context.Cars.AddRange(new[] {
                 new Core.Data.Car
                 {
                     CarId = 1,
+                    ModelId = 1,
                     Price = 9999M,
                     Year = 2012,
                     Notes = "car 1"
@@ -83,6 +101,7 @@ namespace NetCoreReactApp.Web
                 new Core.Data.Car
                 {
                     CarId = 2,
+                    ModelId = 2,
                     Price = 32999M,
                     Year = 2017,
                     Notes = "car 2"
@@ -90,6 +109,7 @@ namespace NetCoreReactApp.Web
                 new Core.Data.Car
                 {
                     CarId = 3,
+                    ModelId = 3,
                     Price = 17500M,
                     Year = 2015,
                     Notes = "car 3"

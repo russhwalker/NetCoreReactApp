@@ -20,9 +20,15 @@ namespace NetCoreReactApp.Core.Data
             return this.context.Cars.Single(c => c.CarId == carId);
         }
 
-        public List<Car> GetCars()
+        public List<ViewModels.CarRow> GetCars()
         {
-            return this.context.Cars.ToList();
+            return this.context.Cars.Select(c => new ViewModels.CarRow
+            {
+                CarId = c.CarId,
+                Year = c.Year,
+                Price = c.Price,
+                ModelName = c.Model.ModelName
+            }).ToList();
         }
 
         public Car Save(Car car)
@@ -40,5 +46,9 @@ namespace NetCoreReactApp.Core.Data
             return car;
         }
 
+        public List<Model> GetModels()
+        {
+            return this.context.Models.ToList();
+        }
     }
 }

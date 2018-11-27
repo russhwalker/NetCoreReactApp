@@ -10,6 +10,7 @@ export class Cars extends Component {
                     <tr>
                         <th></th>
                         <th>Year</th>
+                        <th>Model</th>
                         <th>Price</th>
                     </tr>
                 </thead>
@@ -22,6 +23,7 @@ export class Cars extends Component {
                                 </Link>
                             </td>
                             <td>{car.year}</td>
+                            <td>{car.modelName}</td>
                             <td>{car.priceFormatted}</td>
                         </tr>
                     )}
@@ -39,7 +41,10 @@ export class Cars extends Component {
         fetch('api/Cars/Inventory')
             .then(response => response.json())
             .then(data => {
-                this.setState({ cars: data, loading: false });
+                this.setState({
+                    cars: data,
+                    loading: false
+                });
             });
     }
 
