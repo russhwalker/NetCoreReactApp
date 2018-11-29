@@ -4,6 +4,8 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { Cars } from './components/Cars';
 import { CarEdit } from './components/CarEdit';
+import { ModelEdit } from './components/ModelEdit';
+import { Models } from './components/Models';
 
 export default class App extends Component {
     displayName = App.name
@@ -14,6 +16,8 @@ export default class App extends Component {
                 <Route exact path='/' component={Home} />
                 <Route path='/cars' component={Cars} />
                 <Route path='/caredit/:carId' component={CarEdit} />
+                <Route path='/models' component={Models} />
+                <Route path='/modeledit/:modelId' component={ModelEdit} />
             </Layout>
         );
     }

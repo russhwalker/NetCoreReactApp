@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class EditButtons extends Component {
 
@@ -6,6 +7,19 @@ export class EditButtons extends Component {
         super(props);
     }
     render() {
+        if (this.props.isNew) {
+            return (
+                <div className="row">
+                    <div className="col-md-12">
+                        <Link className="btn btn-sm btn-default" to={this.props.isNewCancelRedirect}>
+                            Cancel
+                        </Link>
+                        &nbsp;&nbsp;
+                        <button className="btn btn-sm btn-primary" name="year" type="submit">Save</button>
+                    </div>
+                </div>
+            );
+        }
         if (this.props.isEditing) {
             return (
                 <div className="row">

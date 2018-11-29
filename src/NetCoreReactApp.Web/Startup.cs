@@ -23,6 +23,7 @@ namespace NetCoreReactApp.Web
         {
             services.AddDbContext<Core.Data.DealerContext>(opt => opt.UseInMemoryDatabase("Dealer"));
             services.AddTransient<Core.Data.ICarRepository, Core.Data.CarRepository>();
+            services.AddTransient<Core.Data.IModelRepository, Core.Data.ModelRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

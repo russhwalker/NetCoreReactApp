@@ -5,32 +5,37 @@ import { LinkContainer } from 'react-router-bootstrap';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
-  displayName = NavMenu.name
+    displayName = NavMenu.name
 
-  render() {
-    return (
-      <Navbar inverse fixedTop fluid collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to={'/'}>NetCoreReactApp.Web</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav>
-            <LinkContainer to={'/'} exact>
-              <NavItem>
-                <Glyphicon glyph='home' /> Home
-              </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/cars'}>
-              <NavItem>
-                <Glyphicon glyph='th-list' /> Cars
-              </NavItem>
-            </LinkContainer>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    );
-  }
+    render() {
+        return (
+            <Navbar inverse fixedTop fluid collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <Link to={'/'}>NetCoreReactApp.Web</Link>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav>
+                        <LinkContainer to={'/'} exact>
+                            <NavItem>
+                                <Glyphicon glyph='home' /> Home
+                            </NavItem>
+                        </LinkContainer>
+                        <LinkContainer to={'/cars'}>
+                            <NavItem>
+                                <Glyphicon glyph='th-list' /> Cars
+                            </NavItem>
+                        </LinkContainer>
+                        <LinkContainer to={'/models'}>
+                            <NavItem>
+                                <Glyphicon glyph='th-list' /> Models
+                            </NavItem>
+                        </LinkContainer>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        );
+    }
 }

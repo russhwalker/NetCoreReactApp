@@ -7,14 +7,17 @@ export class CarEdit extends Component {
 
     constructor(props) {
         super(props);
+        var carId = parseInt(props.match.params.carId);
+        var isNew = carId === 0;
         this.state = {
-            carId: 0,
+            isNew: isNew,
+            carId: carId,
             modelId: 0,
             year: 0,
             price: 0,
             notes: '',
             models: [],
-            editing: false,
+            editing: isNew,
             loading: true
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -22,20 +25,35 @@ export class CarEdit extends Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
 
-        fetch('api/Cars/CarEdit/' + props.match.params.carId)
-            .then(response => response.json())
-            .then(data => {
-                this.setState(
-                    {
-                        models: data.models,
-                        carId: data.car.carId,
-                        modelId: data.car.modelId,
-                        year: data.car.year,
-                        price: data.car.price,
-                        notes: data.car.notes,
+        if (isNew) {
+            fetch('api/Models/GetModels')
+                .then(response => response.json())
+                .then(data => {
+                    this.setState({
+                        models: data,
                         loading: false
                     });
-            });
+                })
+                .catch((e) => {
+                    alert(e);
+                });
+        }
+        else {
+            fetch('api/Cars/CarEdit/' + carId)
+                .then(response => response.json())
+                .then(data => {
+                    this.setState(
+                        {
+                            models: data.models,
+                            carId: data.car.carId,
+                            modelId: data.car.modelId,
+                            year: data.car.year,
+                            price: data.car.price,
+                            notes: data.car.notes,
+                            loading: false
+                        });
+                });
+        }
     }
 
     handleInputChange(event) {
@@ -108,6 +126,7 @@ export class CarEdit extends Component {
                         <div className="col-md-2">
                             <label>Model</label>
                             <select className="form-control" name="modelId" value={this.state.modelId} onChange={this.handleInputChange} disabled={!this.state.editing}>
+                                <option value="0">--</option>
                                 {this.state.models.map(function (m) {
                                     return <option value={m.modelId}>{m.modelName}</option>;
                                 })}
@@ -126,7 +145,7 @@ export class CarEdit extends Component {
                             <textarea className="form-control" name="notes" value={this.state.notes} onChange={this.handleInputChange} disabled={!this.state.editing} />
                         </div>
                     </div>
-                    <EditButtons onEditClick={this.handleEdit} onCancelClick={this.handleCancel} isEditing={this.state.editing} />
+                    <EditButtons onEditClick={this.handleEdit} onCancelClick={this.handleCancel} isEditing={this.state.editing} isNew={this.state.isNew} isNewCancelRedirect="/cars" />
                 </form>
             </div>
         );

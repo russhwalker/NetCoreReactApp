@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-export class Cars extends Component {
+export class Models extends Component {
 
-    static renderCars(cars) {
+    static renderModels(models) {
         return (
             <table className='table table-condensed'>
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Year</th>
                         <th>Model</th>
-                        <th>Price</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {cars.map(car =>
-                        <tr key={car.carId}>
+                    {models.map(model =>
+                        <tr key={model.modelId}>
                             <td>
-                                <Link className="btn btn-xs btn-info" to={`/caredit/${car.carId}`}>
+                                <Link className="btn btn-xs btn-info" to={`/modeledit/${model.modelId}`}>
                                     View
                                 </Link>
                             </td>
-                            <td>{car.year}</td>
-                            <td>{car.modelName}</td>
-                            <td>{car.priceFormatted}</td>
+                            <td>{model.modelName}</td>
                         </tr>
                     )}
                 </tbody>
@@ -32,33 +28,39 @@ export class Cars extends Component {
         );
     }
 
-    displayName = Cars.name;
+    displayName = Models.name;
 
     constructor(props) {
         super(props);
-        this.state = { cars: [], loading: true };
+        this.state = {
+            models: [],
+            loading: true
+        };
 
-        fetch('api/Cars/Inventory')
+        fetch('api/Models/GetModels')
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    cars: data,
+                    models: data,
                     loading: false
                 });
+            })
+            .catch((e) => {
+                alert(e);
             });
     }
 
     render() {
         let tableContents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Cars.renderCars(this.state.cars);
+            : Models.renderModels(this.state.models);
 
         return (
             <div>
-                <h1>Cars</h1>
+                <h1>Models</h1>
                 {tableContents}
                 <hr />
-                <Link className="btn btn-sm btn-primary" to={`/caredit/0`}>
+                <Link className="btn btn-sm btn-primary" to={`/modeledit/0`}>
                     Add
                 </Link>
             </div>
