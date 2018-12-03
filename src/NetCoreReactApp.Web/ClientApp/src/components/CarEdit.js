@@ -12,10 +12,12 @@ export class CarEdit extends Component {
         this.state = {
             isNew: isNew,
             carId: carId,
+            makeId: 0,
             modelId: 0,
             year: 0,
             price: 0,
             notes: '',
+            makes: [],
             models: [],
             editing: isNew,
             loading: true
@@ -25,35 +27,24 @@ export class CarEdit extends Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
 
-        if (isNew) {
-            fetch('api/Models/GetModels')
-                .then(response => response.json())
-                .then(data => {
-                    this.setState({
-                        models: data,
+        fetch('api/Cars/CarEdit/' + carId)
+            .then(response => response.json())
+            .then(data => {
+                var model = data.models.filter(m => m.modelId === data.car.modelId);
+                var makeId = (model && model.length > 0) ? model[0].makeId : 0;
+                this.setState(
+                    {
+                        makes: data.makes,
+                        models: data.models,
+                        makeId: makeId,
+                        carId: data.car.carId,
+                        modelId: data.car.modelId,
+                        year: data.car.year,
+                        price: data.car.price,
+                        notes: data.car.notes,
                         loading: false
                     });
-                })
-                .catch((e) => {
-                    alert(e);
-                });
-        }
-        else {
-            fetch('api/Cars/CarEdit/' + carId)
-                .then(response => response.json())
-                .then(data => {
-                    this.setState(
-                        {
-                            models: data.models,
-                            carId: data.car.carId,
-                            modelId: data.car.modelId,
-                            year: data.car.year,
-                            price: data.car.price,
-                            notes: data.car.notes,
-                            loading: false
-                        });
-                });
-        }
+            });
     }
 
     handleInputChange(event) {
@@ -120,6 +111,17 @@ export class CarEdit extends Component {
                         <div className="col-md-2">
                             <label>Year</label>
                             <input className="form-control" name="year" type="text" value={this.state.year} onChange={this.handleInputChange} disabled={!this.state.editing} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-2">
+                            <label>Make</label>
+                            <select className="form-control" name="makeId" value={this.state.makeId} onChange={this.handleInputChange} disabled={!this.state.editing}>
+                                <option value="0">--</option>
+                                {this.state.makes.map(function (m) {
+                                    return <option value={m.makeId}>{m.makeName}</option>;
+                                })}
+                            </select>
                         </div>
                     </div>
                     <div className="row">

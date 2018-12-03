@@ -10,10 +10,13 @@ namespace NetCoreReactApp.Web.Controllers
     public class ModelsController : Controller
     {
         private readonly IModelRepository modelRepository;
+        private readonly IMakeRepository makeRepository;
 
-        public ModelsController(IModelRepository modelRepository)
+        public ModelsController(IModelRepository modelRepository,
+            IMakeRepository makeRepository)
         {
             this.modelRepository = modelRepository;
+            this.makeRepository = makeRepository;
         }
 
         [HttpGet("[action]")]
@@ -29,9 +32,13 @@ namespace NetCoreReactApp.Web.Controllers
         }
 
         [HttpGet("[action]/{modelId}")]
-        public Model ModelEdit(int modelId)
+        public ModelEditViewModel ModelEdit(int modelId)
         {
-            return modelRepository.Get(modelId);
+            return new ModelEditViewModel
+            {
+                Model = modelRepository.Get(modelId),
+                Makes = makeRepository.GetMakes()
+            };
         }
 
         [HttpPost("[action]")]

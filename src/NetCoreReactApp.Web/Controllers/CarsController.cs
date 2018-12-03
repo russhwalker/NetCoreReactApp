@@ -10,10 +10,14 @@ namespace NetCoreReactApp.Web.Controllers
     public class CarsController : Controller
     {
         private readonly ICarRepository carRepository;
+        private readonly IMakeRepository makeRepository;
+        private readonly IModelRepository modelRepository;
 
-        public CarsController(ICarRepository carRepository)
+        public CarsController(ICarRepository carRepository, IMakeRepository makeRepository, IModelRepository modelRepository)
         {
             this.carRepository = carRepository;
+            this.makeRepository = makeRepository;
+            this.modelRepository = modelRepository;
         }
 
         [HttpGet("[action]")]
@@ -27,8 +31,9 @@ namespace NetCoreReactApp.Web.Controllers
         {
             return new CarEditViewModel
             {
-                Car = carRepository.Get(carId),
-                Models = carRepository.GetModels()
+                Car = carId == 0 ? new Car() : carRepository.Get(carId),
+                Makes = makeRepository.GetMakes(),
+                Models = modelRepository.GetModels()
             };
         }
 

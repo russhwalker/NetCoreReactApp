@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace NetCoreReactApp.Core.ViewModels
 {
-    public class CarEditViewModel
+    public class ModelEditViewModel
     {
-        public Car Car { get; set; }
+        public Model Model { get; set; }
         public List<Make> Makes { get; set; }
-        public List<Model> Models { get; set; }
     }
 }

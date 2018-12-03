@@ -11,6 +11,8 @@ export class ModelEdit extends Component {
         var isNew = modelId === 0;
         this.state = {
             isNew: isNew,
+            makes: [],
+            makeId: 0,
             modelId: modelId,
             modelName: '',
             editing: isNew,
@@ -27,8 +29,10 @@ export class ModelEdit extends Component {
                 .then(data => {
                     this.setState(
                         {
-                            modelId: data.modelId,
-                            modelName: data.modelName,
+                            makes: data.makes,
+                            makeId: data.model.makeId,
+                            modelId: data.model.modelId,
+                            modelName: data.model.modelName,
                             loading: false
                         });
                 })
@@ -67,6 +71,7 @@ export class ModelEdit extends Component {
         });
         var data = {
             modelId: this.state.modelId,
+            makeId: this.state.makeId,
             modelName: this.state.modelName
         };
 
@@ -99,6 +104,17 @@ export class ModelEdit extends Component {
                 <h1>Edit Model</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input type="hidden" value={this.state.modelId} onChange={this.handleInputChange} />
+                    <div className="row">
+                        <div className="col-md-2">
+                            <label>Make</label>
+                            <select className="form-control" name="makeId" value={this.state.makeId} onChange={this.handleInputChange} disabled={!this.state.editing}>
+                                <option value="0">--</option>
+                                {this.state.makes.map(function (m) {
+                                    return <option value={m.makeId}>{m.makeName}</option>;
+                                })}
+                            </select>
+                        </div>
+                    </div>
                     <div className="row">
                         <div className="col-md-2">
                             <label>Model</label>
