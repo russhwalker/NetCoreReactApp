@@ -7,20 +7,10 @@ using System.Threading.Tasks;
 
 namespace NetCoreReactApp.Core.ViewModels
 {
-    public class CarRow
+    public class ModelRow
     {
-        public int CarId { get; set; }
+        public int ModelId { get; set; }
         public string MakeName { get; set; }
         public string ModelName { get; set; }
-        public int Year { get; set; }
-        public decimal Price { get; set; }
-
-        public string PriceFormatted
-        {
-            get
-            {
-                return Price.ToString("C0");
-            }
-        }
     }
 }

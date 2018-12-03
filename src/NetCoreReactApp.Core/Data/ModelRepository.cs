@@ -26,6 +26,16 @@ namespace NetCoreReactApp.Core.Data
             return this.context.Models.ToList();
         }
 
+        public List<ViewModels.ModelRow> GetModelRows()
+        {
+            return this.context.Models.Select(m => new ViewModels.ModelRow
+            {
+                ModelId = m.ModelId,
+                ModelName = m.ModelName,
+                MakeName = m.Make.MakeName
+            }).ToList();
+        }
+
         public Model Save(Model model)
         {
             if (model.ModelId == 0)

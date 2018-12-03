@@ -23,6 +23,7 @@ namespace NetCoreReactApp.Web
         {
             services.AddDbContext<Core.Data.DealerContext>(opt => opt.UseInMemoryDatabase("Dealer"));
             services.AddTransient<Core.Data.ICarRepository, Core.Data.CarRepository>();
+            services.AddTransient<Core.Data.IMakeRepository, Core.Data.MakeRepository>();
             services.AddTransient<Core.Data.IModelRepository, Core.Data.ModelRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -73,44 +74,60 @@ namespace NetCoreReactApp.Web
 
         private void SeedDatabase(Core.Data.DealerContext context)
         {
-            context.Models.AddRange(new[] {
-                new Core.Data.Model
-                {
-                    ModelId = 1,
-                    ModelName = "Civic"
-                },
-                new Core.Data.Model
-                {
-                    ModelId = 2,
-                    ModelName = "Accord"
-                },
-                new Core.Data.Model
-                {
-                    ModelId = 3,
-                    ModelName = "F150"
-                }
+            var make1 = new Core.Data.Make
+            {
+                MakeName = "Honda"
+            };
+            var make2 = new Core.Data.Make
+            {
+                MakeName = "Ford"
+            };
+
+            context.Makes.AddRange(new[] {
+                make1,
+                make2
             });
+
+            var model1 = new Core.Data.Model
+            {
+                ModelName = "Civic",
+                Make = make1
+            };
+            var model2 = new Core.Data.Model
+            {
+                ModelName = "Accord",
+                Make = make1
+            };
+            var model3 = new Core.Data.Model
+            {
+                ModelName = "F150",
+                Make = make2
+            };
+
+            context.Models.AddRange(new[] {
+                model1,
+                model2,
+                model3
+            });
+
             context.Cars.AddRange(new[] {
                 new Core.Data.Car
                 {
-                    CarId = 1,
-                    ModelId = 1,
+                    Model = model1,
                     Price = 9999M,
                     Year = 2012,
                     Notes = "car 1"
                 },
                 new Core.Data.Car
                 {
-                    CarId = 2,
-                    ModelId = 2,
+                    Model = model2,
                     Price = 32999M,
                     Year = 2017,
                     Notes = "car 2"
                 },
                 new Core.Data.Car
                 {
-                    CarId = 3,
-                    ModelId = 3,
+                    Model = model3,
                     Price = 17500M,
                     Year = 2015,
                     Notes = "car 3"

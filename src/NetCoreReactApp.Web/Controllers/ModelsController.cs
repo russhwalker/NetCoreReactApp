@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreReactApp.Core.Data;
+using NetCoreReactApp.Core.ViewModels;
 
 namespace NetCoreReactApp.Web.Controllers
 {
@@ -19,6 +20,12 @@ namespace NetCoreReactApp.Web.Controllers
         public IEnumerable<Model> GetModels()
         {
             return modelRepository.GetModels();
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<ModelRow> GetModelRows()
+        {
+            return modelRepository.GetModelRows();
         }
 
         [HttpGet("[action]/{modelId}")]

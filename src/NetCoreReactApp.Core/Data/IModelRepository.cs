@@ -11,5 +11,6 @@ namespace NetCoreReactApp.Core.Data
         Model Get(int modelId);
         Model Save(Model model);
         List<Model> GetModels();
+        List<ViewModels.ModelRow> GetModelRows();
     }
 }

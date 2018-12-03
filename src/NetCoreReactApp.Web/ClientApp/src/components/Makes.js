@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-export class Models extends Component {
+export class Makes extends Component {
 
-    static renderModels(models) {
+    static renderMakes(makes) {
         return (
             <table className='table table-condensed'>
                 <thead>
                     <tr>
                         <th></th>
                         <th>Make</th>
-                        <th>Model</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {models.map(model =>
-                        <tr key={model.modelId}>
+                    {makes.map(make =>
+                        <tr key={make.makeId}>
                             <td>
-                                <Link className="btn btn-xs btn-info" to={`/modeledit/${model.modelId}`}>
+                                <Link className="btn btn-xs btn-info" to={`/makeedit/${make.makeId}`}>
                                     View
                                 </Link>
                             </td>
-                            <td>{model.makeName}</td>
-                            <td>{model.modelName}</td>
+                            <td>{make.makeName}</td>
                         </tr>
                     )}
                 </tbody>
@@ -30,20 +28,20 @@ export class Models extends Component {
         );
     }
 
-    displayName = Models.name;
+    displayName = Makes.name;
 
     constructor(props) {
         super(props);
         this.state = {
-            models: [],
+            makes: [],
             loading: true
         };
 
-        fetch('api/Models/GetModelRows')
+        fetch('api/Makes/GetMakes')
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    models: data,
+                    makes: data,
                     loading: false
                 });
             })
@@ -55,14 +53,14 @@ export class Models extends Component {
     render() {
         let tableContents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Models.renderModels(this.state.models);
+            : Makes.renderMakes(this.state.makes);
 
         return (
             <div>
-                <h1>Models</h1>
+                <h1>Makes</h1>
                 {tableContents}
                 <hr />
-                <Link className="btn btn-sm btn-primary" to={`/modeledit/0`}>
+                <Link className="btn btn-sm btn-primary" to={`/makeedit/0`}>
                     Add
                 </Link>
             </div>

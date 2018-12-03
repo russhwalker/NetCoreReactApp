@@ -99,7 +99,7 @@ export class CarEdit extends Component {
             },
             body: JSON.stringify(data)
         }).then(response => {
-            response.json();
+            this.props.history.push('/cars');
         }).catch(() => {
             this.setState({
                 editing: true

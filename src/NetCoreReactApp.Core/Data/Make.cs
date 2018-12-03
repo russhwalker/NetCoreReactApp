@@ -5,15 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetCoreReactApp.Core.Data
 {
-    public class Model
+    public class Make
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ModelId { get; set; }
-
         public int MakeId { get; set; }
 
-        public string ModelName { get; set; }
-
-        public virtual Make Make { get; set; }
+        public string MakeName { get; set; }
     }
 }

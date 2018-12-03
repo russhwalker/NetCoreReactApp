@@ -27,6 +27,7 @@ namespace NetCoreReactApp.Core.Data
                 CarId = c.CarId,
                 Year = c.Year,
                 Price = c.Price,
+                MakeName = c.Model.Make.MakeName,
                 ModelName = c.Model.ModelName
             }).ToList();
         }

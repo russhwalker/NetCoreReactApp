@@ -28,6 +28,11 @@ export class NavMenu extends Component {
                                 <Glyphicon glyph='th-list' /> Cars
                             </NavItem>
                         </LinkContainer>
+                        <LinkContainer to={'/makes'}>
+                            <NavItem>
+                                <Glyphicon glyph='th-list' /> Makes
+                            </NavItem>
+                        </LinkContainer>
                         <LinkContainer to={'/models'}>
                             <NavItem>
                                 <Glyphicon glyph='th-list' /> Models

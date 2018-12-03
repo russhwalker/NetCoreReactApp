@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { EditButtons } from './EditButtons';
 
-export class ModelEdit extends Component {
+export class MakeEdit extends Component {
 
-    displayName = ModelEdit.name
+    displayName = MakeEdit.name
 
     constructor(props) {
         super(props);
-        var modelId = parseInt(props.match.params.modelId);
-        var isNew = modelId === 0;
+        var makeId = parseInt(props.match.params.makeId);
+        var isNew = makeId === 0;
         this.state = {
             isNew: isNew,
-            modelId: modelId,
-            modelName: '',
+            makeId: makeId,
+            makeName: '',
             editing: isNew,
             loading: !isNew
         };
@@ -22,13 +22,13 @@ export class ModelEdit extends Component {
         this.handleCancel = this.handleCancel.bind(this);
 
         if (!isNew) {
-            fetch('api/Models/ModelEdit/' + modelId)
+            fetch('api/Makes/MakeEdit/' + makeId)
                 .then(response => response.json())
                 .then(data => {
                     this.setState(
                         {
-                            modelId: data.modelId,
-                            modelName: data.modelName,
+                            makeId: data.makeId,
+                            makeName: data.makeName,
                             loading: false
                         });
                 })
@@ -66,11 +66,11 @@ export class ModelEdit extends Component {
             editing: false
         });
         var data = {
-            modelId: this.state.modelId,
-            modelName: this.state.modelName
+            makeId: this.state.makeId,
+            makeName: this.state.makeName
         };
 
-        fetch('api/Models/Save', {
+        fetch('api/Makes/Save', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -81,7 +81,7 @@ export class ModelEdit extends Component {
             response.json();
         })
             .then(() => {
-                this.props.history.push('/models');
+                this.props.history.push('/makes');
             })
             .catch(() => {
                 this.setState({
@@ -96,16 +96,16 @@ export class ModelEdit extends Component {
     render() {
         return (
             <div>
-                <h1>Edit Model</h1>
+                <h1>Edit Make</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="hidden" value={this.state.modelId} onChange={this.handleInputChange} />
+                    <input type="hidden" value={this.state.makeId} onChange={this.handleInputChange} />
                     <div className="row">
                         <div className="col-md-2">
-                            <label>Model</label>
-                            <input className="form-control" name="modelName" type="text" value={this.state.modelName} onChange={this.handleInputChange} disabled={!this.state.editing} />
+                            <label>Make</label>
+                            <input className="form-control" name="makeName" type="text" value={this.state.makeName} onChange={this.handleInputChange} disabled={!this.state.editing} />
                         </div>
                     </div>
-                    <EditButtons onEditClick={this.handleEdit} onCancelClick={this.handleCancel} isEditing={this.state.editing} isNew={this.state.isNew} isNewCancelRedirect="/models" />
+                    <EditButtons onEditClick={this.handleEdit} onCancelClick={this.handleCancel} isEditing={this.state.editing} isNew={this.state.isNew} isNewCancelRedirect="/makes" />
                 </form>
             </div>
         );
