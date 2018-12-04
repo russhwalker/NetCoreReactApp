@@ -16,30 +16,28 @@ export class ModelEdit extends Component {
             modelId: modelId,
             modelName: '',
             editing: isNew,
-            loading: !isNew
+            loading: true
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
 
-        if (!isNew) {
-            fetch('api/Models/ModelEdit/' + modelId)
-                .then(response => response.json())
-                .then(data => {
-                    this.setState(
-                        {
-                            makes: data.makes,
-                            makeId: data.model.makeId,
-                            modelId: data.model.modelId,
-                            modelName: data.model.modelName,
-                            loading: false
-                        });
-                })
-                .catch(() => {
-                    alert('ERROR!');
-                });
-        }
+        fetch('api/Models/ModelEdit/' + modelId)
+            .then(response => response.json())
+            .then(data => {
+                this.setState(
+                    {
+                        makes: data.makes,
+                        makeId: data.model.makeId,
+                        modelId: data.model.modelId,
+                        modelName: data.model.modelName,
+                        loading: false
+                    });
+            })
+            .catch(() => {
+                alert('ERROR!');
+            });
     }
 
     handleInputChange(event) {

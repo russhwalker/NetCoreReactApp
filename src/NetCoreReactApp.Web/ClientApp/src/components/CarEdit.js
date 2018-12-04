@@ -18,11 +18,14 @@ export class CarEdit extends Component {
             price: 0,
             notes: '',
             makes: [],
+            filteredModels: [],
             models: [],
             editing: isNew,
             loading: true
         };
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleMakeChange = this.handleMakeChange.bind(this);
+        this.setFilteredModels = this.setFilteredModels.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -44,7 +47,15 @@ export class CarEdit extends Component {
                         notes: data.car.notes,
                         loading: false
                     });
+                this.setFilteredModels(makeId);
             });
+    }
+
+    setFilteredModels(makeId) {
+        var filteredModels = this.state.models.filter(m => m.makeId === makeId);
+        this.setState({
+            filteredModels: filteredModels
+        });
     }
 
     handleInputChange(event) {
@@ -54,6 +65,12 @@ export class CarEdit extends Component {
         this.setState({
             [name]: value
         });
+    }
+
+    handleMakeChange(event) {
+        this.handleInputChange(event);
+        var makeId = parseInt(event.target.value);
+        this.setFilteredModels(makeId);
     }
 
     handleCancel(event) {
@@ -116,7 +133,7 @@ export class CarEdit extends Component {
                     <div className="row">
                         <div className="col-md-2">
                             <label>Make</label>
-                            <select className="form-control" name="makeId" value={this.state.makeId} onChange={this.handleInputChange} disabled={!this.state.editing}>
+                            <select className="form-control" name="makeId" value={this.state.makeId} onChange={this.handleMakeChange} disabled={!this.state.editing}>
                                 <option value="0">--</option>
                                 {this.state.makes.map(function (m) {
                                     return <option value={m.makeId}>{m.makeName}</option>;
@@ -129,7 +146,7 @@ export class CarEdit extends Component {
                             <label>Model</label>
                             <select className="form-control" name="modelId" value={this.state.modelId} onChange={this.handleInputChange} disabled={!this.state.editing}>
                                 <option value="0">--</option>
-                                {this.state.models.map(function (m) {
+                                {this.state.filteredModels.map(function (m) {
                                     return <option value={m.modelId}>{m.modelName}</option>;
                                 })}
                             </select>

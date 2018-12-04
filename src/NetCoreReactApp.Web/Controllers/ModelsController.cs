@@ -36,7 +36,7 @@ namespace NetCoreReactApp.Web.Controllers
         {
             return new ModelEditViewModel
             {
-                Model = modelRepository.Get(modelId),
+                Model = modelId == 0 ? new Model() : modelRepository.Get(modelId),
                 Makes = makeRepository.GetMakes()
             };
         }
