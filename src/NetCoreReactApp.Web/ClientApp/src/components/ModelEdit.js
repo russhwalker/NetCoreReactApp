@@ -7,7 +7,7 @@ export class ModelEdit extends Component {
 
     constructor(props) {
         super(props);
-        var modelId = parseInt(props.match.params.modelId);
+        var modelId = parseInt(props.match.params.modelId, 10);
         var isNew = modelId === 0;
         this.state = {
             isNew: isNew,

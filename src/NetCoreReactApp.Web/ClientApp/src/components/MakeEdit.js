@@ -7,7 +7,7 @@ export class MakeEdit extends Component {
 
     constructor(props) {
         super(props);
-        var makeId = parseInt(props.match.params.makeId);
+        var makeId = parseInt(props.match.params.makeId, 10);
         var isNew = makeId === 0;
         this.state = {
             isNew: isNew,

@@ -38,16 +38,20 @@ export class Cars extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             cars: [],
             visibleCarsOnly: true,
             loading: true
         };
 
+        this.handleVisibleChange = this.handleVisibleChange.bind(this);
+
         this.loadCars();
     }
 
     loadCars() {
+        console.log('loadCars(visibleCarsOnly):' + this.state.visibleCarsOnly);
         fetch('api/Cars/Inventory/' + this.state.visibleCarsOnly)
             .then(response => response.json())
             .then(data => {
@@ -58,6 +62,14 @@ export class Cars extends Component {
             });
     }
 
+    handleVisibleChange(event) {
+        console.log('handleVisibleChange(visibleCarsOnly):' + this.state.visibleCarsOnly);
+        this.setState({
+            visibleCarsOnly: false
+        });
+        this.loadCars();
+    }
+
     render() {
         let tableContents = this.state.loading
             ? <p><em>Loading...</em></p>
@@ -66,6 +78,13 @@ export class Cars extends Component {
         return (
             <div>
                 <h1>Cars</h1>
+                <div className="row">
+                    <div className="col-md-3">
+                        <label htmlFor="visibleCarsOnly">Visible Cars Only</label>
+                        &nbsp;
+                        <input type="checkbox" name="visibleCarsOnly" onChange={this.handleVisibleChange} checked={this.state.visibleCarsOnly} />
+                    </div>
+                </div>
                 {tableContents}
                 <hr />
                 <Link className="btn btn-sm btn-primary" to={`/caredit/0`}>

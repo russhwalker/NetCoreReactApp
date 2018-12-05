@@ -7,7 +7,7 @@ export class CarEdit extends Component {
 
     constructor(props) {
         super(props);
-        var carId = parseInt(props.match.params.carId);
+        var carId = parseInt(props.match.params.carId, 10);
         var isNew = carId === 0;
         this.state = {
             isNew: isNew,
@@ -69,7 +69,7 @@ export class CarEdit extends Component {
 
     handleMakeChange(event) {
         this.handleInputChange(event);
-        var makeId = parseInt(event.target.value);
+        var makeId = parseInt(event.target.value, 10);
         this.setFilteredModels(makeId);
     }
 
