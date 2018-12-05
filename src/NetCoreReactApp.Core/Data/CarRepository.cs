@@ -20,9 +20,15 @@ namespace NetCoreReactApp.Core.Data
             return this.context.Cars.Single(c => c.CarId == carId);
         }
 
-        public List<ViewModels.CarRow> GetCars()
+        public List<ViewModels.CarRow> GetCarRows(bool visibleCarsOnly)
         {
-            return this.context.Cars.Select(c => new ViewModels.CarRow
+            var cars = this.context.Cars.AsQueryable();
+            if (visibleCarsOnly)
+            {
+                cars = cars.Where(c => c.Visible).AsQueryable();
+            }
+
+            return cars.Select(c => new ViewModels.CarRow
             {
                 CarId = c.CarId,
                 Year = c.Year,

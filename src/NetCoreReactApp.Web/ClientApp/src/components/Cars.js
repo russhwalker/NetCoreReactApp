@@ -40,10 +40,15 @@ export class Cars extends Component {
         super(props);
         this.state = {
             cars: [],
+            visibleCarsOnly: true,
             loading: true
         };
 
-        fetch('api/Cars/Inventory')
+        this.loadCars();
+    }
+
+    loadCars() {
+        fetch('api/Cars/Inventory/' + this.state.visibleCarsOnly)
             .then(response => response.json())
             .then(data => {
                 this.setState({

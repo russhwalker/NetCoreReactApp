@@ -116,21 +116,32 @@ namespace NetCoreReactApp.Web
                     Model = model1,
                     Price = 9999M,
                     Year = 2012,
-                    Notes = "car 1"
+                    Notes = "car 1",
+                    Visible = true
                 },
                 new Core.Data.Car
                 {
                     Model = model2,
                     Price = 32999M,
                     Year = 2017,
-                    Notes = "car 2"
+                    Notes = "car 2",
+                    Visible = true
                 },
                 new Core.Data.Car
                 {
                     Model = model3,
                     Price = 17500M,
                     Year = 2015,
-                    Notes = "car 3"
+                    Notes = "car 3",
+                    Visible = true
+                },
+                new Core.Data.Car
+                {
+                    Model = model3,
+                    Price = 0M,
+                    Year = 2010,
+                    Notes = "car 4",
+                    Visible = false
                 }
             });
             context.SaveChanges();

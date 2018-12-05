@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
 import { Cars } from './components/Cars';
 import { CarEdit } from './components/CarEdit';
+import { Home } from './components/Home';
+import { Layout } from './components/Layout';
+import { MakeEdit } from './components/MakeEdit';
+import { Makes } from './components/Makes';
 import { ModelEdit } from './components/ModelEdit';
 import { Models } from './components/Models';
-import { Makes } from './components/Makes';
-import { MakeEdit } from './components/MakeEdit';
+import { Route } from 'react-router';
 
 export default class App extends Component {
     displayName = App.name

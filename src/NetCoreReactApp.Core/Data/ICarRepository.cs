@@ -8,7 +8,7 @@ namespace NetCoreReactApp.Core.Data
 {
     public interface ICarRepository
     {
-        List<ViewModels.CarRow> GetCars();
+        List<ViewModels.CarRow> GetCarRows(bool visibleCarsOnly);
         Car Get(int carId);
         Car Save(Car car);
         List<Model> GetModels();

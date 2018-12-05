@@ -14,6 +14,7 @@ namespace NetCoreReactApp.Core.Data
         public int Year { get; set; }
         public decimal Price { get; set; }
         public string Notes { get; set; }
+        public bool Visible { get; set; }
 
         public virtual Model Model { get; set; }
     }

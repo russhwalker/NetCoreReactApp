@@ -20,10 +20,10 @@ namespace NetCoreReactApp.Web.Controllers
             this.modelRepository = modelRepository;
         }
 
-        [HttpGet("[action]")]
-        public IEnumerable<CarRow> Inventory()
+        [HttpGet("[action]/{visibleCarsOnly}")]
+        public IEnumerable<CarRow> Inventory(bool visibleCarsOnly)
         {
-            return carRepository.GetCars();
+            return carRepository.GetCarRows(visibleCarsOnly);
         }
 
         [HttpGet("[action]/{carId}")]
