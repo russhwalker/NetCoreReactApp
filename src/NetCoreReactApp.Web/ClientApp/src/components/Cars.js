@@ -38,7 +38,10 @@ export class Cars extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { cars: [], loading: true };
+        this.state = {
+            cars: [],
+            loading: true
+        };
 
         fetch('api/Cars/Inventory')
             .then(response => response.json())

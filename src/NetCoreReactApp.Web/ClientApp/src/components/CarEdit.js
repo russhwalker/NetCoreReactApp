@@ -106,7 +106,7 @@ export class CarEdit extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        }).then(response => {
+        }).then(response => {            
             this.props.history.push('/cars');
         }).catch(() => {
             this.setState({
