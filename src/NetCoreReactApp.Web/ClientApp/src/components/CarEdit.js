@@ -44,7 +44,7 @@ export class CarEdit extends Component {
                         modelId: data.car.modelId,
                         year: data.car.year,
                         price: data.car.price,
-                        notes: data.car.notes,
+                        notes: data.car.notes || '',
                         loading: false
                     });
                 this.setFilteredModels(makeId);
@@ -136,7 +136,7 @@ export class CarEdit extends Component {
                             <select className="form-control" name="makeId" value={this.state.makeId} onChange={this.handleMakeChange} disabled={!this.state.editing}>
                                 <option value="0">--</option>
                                 {this.state.makes.map(function (m) {
-                                    return <option value={m.makeId}>{m.makeName}</option>;
+                                    return <option value={m.makeId} key={m.makeId}>{m.makeName}</option>;
                                 })}
                             </select>
                         </div>
@@ -147,7 +147,7 @@ export class CarEdit extends Component {
                             <select className="form-control" name="modelId" value={this.state.modelId} onChange={this.handleInputChange} disabled={!this.state.editing}>
                                 <option value="0">--</option>
                                 {this.state.filteredModels.map(function (m) {
-                                    return <option value={m.modelId}>{m.modelName}</option>;
+                                    return <option value={m.modelId} key={m.modelId}>{m.modelName}</option>;
                                 })}
                             </select>
                         </div>

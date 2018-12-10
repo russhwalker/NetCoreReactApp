@@ -39,20 +39,22 @@ export class Cars extends Component {
     constructor(props) {
         super(props);
 
+        this.handleVisibleChange = this.handleVisibleChange.bind(this);
+        this.loadCars = this.loadCars.bind(this);
+
         this.state = {
             cars: [],
             visibleCarsOnly: true,
             loading: true
         };
 
-        this.handleVisibleChange = this.handleVisibleChange.bind(this);
-
-        this.loadCars();
+        this.loadCars(this.state.visibleCarsOnly);
     }
 
-    loadCars() {
-        console.log('loadCars(visibleCarsOnly):' + this.state.visibleCarsOnly);
-        fetch('api/Cars/Inventory/' + this.state.visibleCarsOnly)
+    loadCars(visibleCarsOnly) {
+        console.log('loadCars(visibleCarsOnly):' + visibleCarsOnly);
+
+        fetch('api/Cars/Inventory/' + visibleCarsOnly)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -63,11 +65,12 @@ export class Cars extends Component {
     }
 
     handleVisibleChange(event) {
-        console.log('handleVisibleChange(visibleCarsOnly):' + this.state.visibleCarsOnly);
+        var val = !this.state.visibleCarsOnly;
         this.setState({
-            visibleCarsOnly: false
+            visibleCarsOnly: val,
+            loading: true
         });
-        this.loadCars();
+        this.loadCars(val);
     }
 
     render() {
