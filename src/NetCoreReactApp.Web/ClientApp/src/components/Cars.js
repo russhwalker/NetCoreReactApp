@@ -1,39 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { CarsTable } from './CarsTable';
 
 export class Cars extends Component {
-
-    static renderCars(cars) {
-        return (
-            <table className='table table-condensed'>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Year</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {cars.map(car =>
-                        <tr key={car.carId}>
-                            <td>
-                                <Link className="btn btn-xs btn-info" to={`/caredit/${car.carId}`}>
-                                    View
-                                </Link>
-                            </td>
-                            <td>{car.year}</td>
-                            <td>{car.makeName}</td>
-                            <td>{car.modelName}</td>
-                            <td>{car.priceFormatted}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        );
-    }
-
     displayName = Cars.name;
 
     constructor(props) {
@@ -52,8 +21,6 @@ export class Cars extends Component {
     }
 
     loadCars(visibleCarsOnly) {
-        console.log('loadCars(visibleCarsOnly):' + visibleCarsOnly);
-
         fetch('api/Cars/Inventory/' + visibleCarsOnly)
             .then(response => response.json())
             .then(data => {
@@ -76,7 +43,7 @@ export class Cars extends Component {
     render() {
         let tableContents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Cars.renderCars(this.state.cars);
+            : <CarsTable cars={this.state.cars} />;
 
         return (
             <div>
