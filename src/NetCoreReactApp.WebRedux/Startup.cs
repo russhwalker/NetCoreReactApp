@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NetCoreReactApp.Web
+namespace NetCoreReactApp.WebRedux
 {
     public class Startup
     {
