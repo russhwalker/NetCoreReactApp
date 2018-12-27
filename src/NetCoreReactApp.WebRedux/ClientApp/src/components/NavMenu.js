@@ -5,31 +5,46 @@ import { LinkContainer } from 'react-router-bootstrap';
 import './NavMenu.css';
 
 export default props => (
-  <Navbar inverse fixedTop fluid collapseOnSelect>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <Link to={'/'}>NetCoreReactApp.WebRedux</Link>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
-      <Nav>
-        <LinkContainer to={'/'} exact>
-          <NavItem>
-            <Glyphicon glyph='home' /> Home
+    <Navbar inverse fixedTop fluid collapseOnSelect>
+        <Navbar.Header>
+            <Navbar.Brand>
+                <Link to={'/'}>NetCoreReactApp.WebRedux</Link>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+            <Nav>
+                <LinkContainer to={'/'} exact>
+                    <NavItem>
+                        <Glyphicon glyph='home' /> Home
           </NavItem>
-        </LinkContainer>
-        <LinkContainer to={'/counter'}>
-          <NavItem>
-            <Glyphicon glyph='education' /> Counter
+                </LinkContainer>
+                <LinkContainer to={'/cars'}>
+                    <NavItem>
+                        <Glyphicon glyph='th-list' /> Cars
+                            </NavItem>
+                </LinkContainer>
+                <LinkContainer to={'/makes'}>
+                    <NavItem>
+                        <Glyphicon glyph='th-list' /> Makes
+                            </NavItem>
+                </LinkContainer>
+                <LinkContainer to={'/models'}>
+                    <NavItem>
+                        <Glyphicon glyph='th-list' /> Models
+                            </NavItem>
+                </LinkContainer>
+                <LinkContainer to={'/counter'}>
+                    <NavItem>
+                        <Glyphicon glyph='education' /> Counter
           </NavItem>
-        </LinkContainer>
-        <LinkContainer to={'/fetchdata'}>
-          <NavItem>
-            <Glyphicon glyph='th-list' /> Fetch data
+                </LinkContainer>
+                <LinkContainer to={'/fetchdata'}>
+                    <NavItem>
+                        <Glyphicon glyph='th-list' /> Fetch data
           </NavItem>
-        </LinkContainer>
-      </Nav>
-    </Navbar.Collapse>
-  </Navbar>
+                </LinkContainer>
+            </Nav>
+        </Navbar.Collapse>
+    </Navbar>
 );
